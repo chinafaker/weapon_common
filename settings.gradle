@@ -1,0 +1,4 @@
+include ':appdemo'
+include ':autoPackage'
+include ':common'
+rootProject.name = "weapon_common"
