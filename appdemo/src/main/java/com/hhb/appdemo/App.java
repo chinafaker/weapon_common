@@ -1,8 +1,7 @@
 package com.hhb.appdemo;
 
 import android.app.Application;
-
-import com.hhb.common.Trace;
+import android.os.Trace;
 
 
 /**

@@ -1,0 +1,111 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+//上传到Jenner 相关配置
+def siteUrl = 'https://github.com/chinafaker/weapon_common'
+def gitUrl = 'https://github.com/chinafaker/weapon_common.git'
+def issueUrl = 'https://github.com/chinafaker/weapon_common/issues'
+
+version = "1.0.0"
+group "blockbuster"
+def artifactIdName = 'common'
+def projectName = 'common'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "weapon_common"
+        name = projectName
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        issueTrackerUrl = issueUrl
+        userOrg = group
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                name artifactIdName
+                artifactId artifactIdName
+                description 'A simple common library demo'
+                url siteUrl
+                licenses {
+                    license {
+                        name 'Apache-2.0'
+                        url 'https://dl.bintray.com/blockbuster/weapon_common'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'huangyiming'
+                        name 'seven'
+                        email '617305321@qq.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+
+if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().hasPlugin('com.android.library')) {
+    println('--------android--------')
+    //android  javadoc和sources文件的生成
+    task sourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier = 'sources'
+    }
+    task javadoc(type: Javadoc) {
+        failOnError false //必须添加以免出错
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+} else {
+    println('--------java--------')
+    //java  javadoc和sources文件的生成
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+
+//在构建生成的时候有可能会报GBK编码等错误，可能需要添加UTF-8声明，如下：
+javadoc {
+    options {
+        //如果你的项目里面有中文注释的话，必须将格式设置为UTF-8，不然会出现乱码
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
+}

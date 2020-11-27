@@ -3,8 +3,8 @@ package com.hhb.appdemo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Trace;
 
-import com.hhb.common.Trace;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
