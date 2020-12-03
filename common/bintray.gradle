@@ -1,15 +1,23 @@
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-//上传到Jenner 相关配置
-def siteUrl = 'https://github.com/chinafaker/weapon_common'
-def gitUrl = 'https://github.com/chinafaker/weapon_common.git'
-def issueUrl = 'https://github.com/chinafaker/weapon_common/issues'
 
-version = "1.0.0"
-group "blockbuster"
-def artifactIdName = 'common'
-def projectName = 'common'
+//上传到Jenner 相关配置
+
+//项目主页
+def siteUrl = 'https://github.com/chinafaker/weapon_common'
+//项目的git地址
+def gitUrl = 'https://github.com/chinafaker/weapon_common.git'
+//项目的issue地址
+def issueUrl = 'https://github.com/chinafaker/weapon_common/issues'
+//发布到JCenter上的项目名字
+def projectName = "common"
+
+//发布到组织名称名字
+group = "com.seven.weapon"
+// 版本号，下次更新是只需要更改版本号即可
+version = "0.0.1"
+//上面配置后上传至JCenter后的编译路径是这样的： compile 'me.songning.CircleView:library:1.0.0'
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -19,35 +27,39 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
-        repo = "weapon_common"
+        //组织名l
+        userOrg = "haibin"
+        //repo值必须要和你创建Maven仓库的时候的名字一样
+        repo = "hhb_common"
+        //发布到JCenter上的项目名字
         name = projectName
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         issueTrackerUrl = issueUrl
-        userOrg = group
         licenses = ["Apache-2.0"]
         publish = true
     }
 }
 
+// 配置maven库，生成POM.xml文件
 install {
     repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
         pom {
             project {
-                name artifactIdName
-                artifactId artifactIdName
-                description 'A simple common library demo'
+                packaging 'aar'
                 url siteUrl
                 licenses {
                     license {
+                        //开源协议
                         name 'Apache-2.0'
-                        url 'https://dl.bintray.com/blockbuster/weapon_common'
+                        url 'https://dl.bintray.com/hhb-seven/weapon_common'
                     }
                 }
                 developers {
                     developer {
                         id 'huangyiming'
-                        name 'seven'
+                        name 'huangyiming'
                         email '617305321@qq.com'
                     }
                 }
@@ -61,37 +73,28 @@ install {
     }
 }
 
-
-if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().hasPlugin('com.android.library')) {
-    println('--------android--------')
-    //android  javadoc和sources文件的生成
-    task sourcesJar(type: Jar) {
-        from android.sourceSets.main.java.srcDirs
-        classifier = 'sources'
-    }
-    task javadoc(type: Javadoc) {
-        failOnError false //必须添加以免出错
-        source = android.sourceSets.main.java.srcDirs
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    }
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        classifier = 'javadoc'
-        from javadoc.destinationDir
-    }
-} else {
-    println('--------java--------')
-    //java  javadoc和sources文件的生成
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        classifier = 'javadoc'
-        from javadoc.destinationDir
-    }
+//生成源文件
+println('--------task sourcesJar--------')
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
 }
 
+//生成Javadoc文档
+println('--------task javadoc--------')
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+//文档打包成jar
+println('--------task javadocJar--------')
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+//上传到JCenter所需要的源码文件
 artifacts {
     archives sourcesJar
     archives javadocJar

@@ -1,9 +1,10 @@
 package com.hhb.appdemo;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.os.Trace;
+import com.hhb.common.Trace;
 
 
 public class MainActivity extends AppCompatActivity {

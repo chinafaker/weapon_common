@@ -29,6 +29,8 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':autoPackage')
+    //implementation project(path: ':common')
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
@@ -36,8 +38,6 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    implementation project(path: ':autoPackage')
-    //implementation project(path: ':common')
-    implementation 'blockbuster:common:1.0.0'
+    //common
+    implementation 'com.seven.weapon:common:0.0.1'
 }
