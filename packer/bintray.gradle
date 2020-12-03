@@ -1,0 +1,62 @@
+apply plugin: 'com.jfrog.bintray'
+
+group = "com.seven.weapon"
+version = "0.0.1"
+def libName = "AutoPacker"
+
+//文档打包成jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+//生成源文件
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allGroovy
+    classifier = 'sources'
+}
+
+//上传到jcenter所需要的源码文件
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+// 配置maven库，生成POM.xml文件
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                groupId project.group
+                artifactId archivesBaseName
+                version project.version
+                developers {
+                    developer {
+                        id 'huangyiming'
+                        name 'huangyiming'
+                        email '617305321@qq.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+//上传到jcenter
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        userOrg = "haibin"
+        repo = "hhb_common"
+        name = libName
+        desc = 'This is a auto-packer'
+        licenses = ["Apache-2.0"]
+        labels = ['gradle', 'plugin', 'pack']
+        publish = true
+    }
+}

@@ -1,9 +1,6 @@
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-
-//上传到Jenner 相关配置
-
 //项目主页
 def siteUrl = 'https://github.com/chinafaker/weapon_common'
 //项目的git地址
@@ -17,27 +14,44 @@ def projectName = "common"
 group = "com.seven.weapon"
 // 版本号，下次更新是只需要更改版本号即可
 version = "0.0.1"
-//上面配置后上传至JCenter后的编译路径是这样的： compile 'me.songning.CircleView:library:1.0.0'
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//生成源文件
+println('--------task sourcesJar--------')
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
 
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    configurations = ['archives']
-    pkg {
-        //组织名l
-        userOrg = "haibin"
-        //repo值必须要和你创建Maven仓库的时候的名字一样
-        repo = "hhb_common"
-        //发布到JCenter上的项目名字
-        name = projectName
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        issueTrackerUrl = issueUrl
-        licenses = ["Apache-2.0"]
-        publish = true
+//生成Javadoc文档
+println('--------task javadoc--------')
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+//文档打包成jar
+println('--------task javadocJar--------')
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+//上传到JCenter所需要的源码文件
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+//在构建生成的时候有可能会报GBK编码等错误，可能需要添加UTF-8声明，如下：
+javadoc {
+    options {
+        //如果你的项目里面有中文注释的话，必须将格式设置为UTF-8，不然会出现乱码
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
     }
 }
 
@@ -73,42 +87,25 @@ install {
     }
 }
 
-//生成源文件
-println('--------task sourcesJar--------')
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-//生成Javadoc文档
-println('--------task javadoc--------')
-task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-//文档打包成jar
-println('--------task javadocJar--------')
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-//上传到JCenter所需要的源码文件
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
-
-//在构建生成的时候有可能会报GBK编码等错误，可能需要添加UTF-8声明，如下：
-javadoc {
-    options {
-        //如果你的项目里面有中文注释的话，必须将格式设置为UTF-8，不然会出现乱码
-        encoding "UTF-8"
-        charSet 'UTF-8'
-        author true
-        version true
-        links "http://docs.oracle.com/javase/7/docs/api"
+//上传到jcenter
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        //组织名l
+        userOrg = "haibin"
+        //repo值必须要和你创建Maven仓库的时候的名字一样
+        repo = "hhb_common"
+        //发布到JCenter上的项目名字
+        name = projectName
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        issueTrackerUrl = issueUrl
+        licenses = ["Apache-2.0"]
+        publish = true
     }
 }
+
