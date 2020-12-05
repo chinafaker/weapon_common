@@ -1,6 +1,21 @@
+//buildscript {
+//    repositories {
+//        jcenter()
+//        maven {
+//            url uri('../repo')
+//        }
+//    }
+//    dependencies {
+//        classpath group: 'com.seven.weapon',
+//                name: 'packer',
+//                version: '0.0.1'
+//    }
+//}
+
 plugins {
     id 'com.android.application'
 }
+//apply plugin: 'auto-packer'
 
 android {
     compileSdkVersion 29
@@ -29,9 +44,8 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':autoPackage')
+    //implementation project(path: ':aidlLibrary')
     //implementation project(path: ':common')
-
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -40,4 +54,42 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //common
     implementation 'com.seven.weapon:common:0.0.1'
+    //MMKV
+    implementation 'com.tencent:mmkv-static:1.2.6'
 }
+
+
+//autoPack {
+//    taskConfig {
+//        //设置禁止打包的ProductFlavor
+//        disableProductFlavors = ['Type2']
+//        //设置禁止打包的BuildType
+//        disableBuildTypes = ['debug']
+//    }
+//    packOutputConfig {
+//        //设置打包输出路径
+//        outputDir "${project.getProjectDir()}/autoPack"
+//        //是否压缩
+//        compress true
+//        //是否发邮件
+//        sendEmail true
+//        //打包其他的文件
+//        otherFiles = ["${project.getProjectDir()}/README.md", "${project.getProjectDir()}/ReleaseNote.txt"]
+//        //对APK文件进行重命名
+//        renameApkFile { project, variant ->
+//            project.name + '_' + variant.name + '_' + variant.versionName + '.apk'
+//        }
+//        //命名打包目录的文件夹，若不设置，默认为APK的文件名
+//        packDirName { project ->
+//            project.name
+//        }
+//    }
+//
+//    uploadFtpConfig {
+//        serverIp "10.10.30.46"
+//        userName "huanghaibin"
+//        passWord "2o6teayI"
+//        uploadFtpPath "/上汽EP21MCE欧洲FOTA项目/版本文件/AVN/apk/"
+//        localPath "‪C:\\Users\\hhb\\Desktop\\蓝鲸改版后.mp4"
+//    }
+//}

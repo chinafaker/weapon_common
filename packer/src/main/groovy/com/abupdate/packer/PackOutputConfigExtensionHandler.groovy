@@ -13,10 +13,12 @@ class PackOutputConfigExtensionHandler {
         }
         String outputDir = packOutputConfig.outputDir
         boolean compress = packOutputConfig.compress
+        //是否发邮件
+        boolean sendEmail = packOutputConfig.sendEmail
         String[] otherFiles = packOutputConfig.otherFiles
         Closure renameApkFile = packOutputConfig.renameApkFile
         Closure packDirName = packOutputConfig.packDirName
-        Log.D("outputDir:${outputDir},compress:${compress}")
+        Log.D("outputDir:${outputDir},compress:${compress},sendEmail:${sendEmail}")
         Log.D("other pack files:" + otherFiles)
 
         if (outputDir == null) {
@@ -84,6 +86,7 @@ class PackOutputConfigExtensionHandler {
             autoPackTask.packDirName = "compile"
         }
         autoPackTask.compress = compress
+        autoPackTask.sendEmail = sendEmail
         autoPackTask.outputDir = outputDir
         autoPackTask.srcPathList = srcPathList
     }

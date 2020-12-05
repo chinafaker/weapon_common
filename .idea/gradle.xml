@@ -12,9 +12,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/aidlLibrary" />
+            <option value="$PROJECT_DIR$/aidlservertest" />
             <option value="$PROJECT_DIR$/appdemo" />
-            <option value="$PROJECT_DIR$/autoPackage" />
             <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/packer" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

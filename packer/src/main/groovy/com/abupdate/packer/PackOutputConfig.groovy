@@ -11,6 +11,10 @@ class PackOutputConfig {
      * 是否压缩
      */
     boolean compress
+    /**
+     * 是否发送邮件
+     */
+    boolean sendEmail
 
     /**
      * 其他文件

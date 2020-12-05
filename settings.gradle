@@ -1,5 +1,6 @@
+include ':aidlservertest'
 include ':appdemo'
-include ':autoPackage'
+include ':aidlLibrary'
 include ':common'
 include ':packer'
 rootProject.name = "weapon_common"

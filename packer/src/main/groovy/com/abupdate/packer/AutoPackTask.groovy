@@ -2,12 +2,14 @@ package com.abupdate.packer
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.impldep.com.sun.xml.bind.v2.TODO
 
 public class AutoPackTask extends DefaultTask {
 
     String outputDir
     String packDirName
     boolean compress
+    boolean sendEmail
     List<ApkRenameDate> srcPathList
 
     @TaskAction
@@ -59,12 +61,18 @@ public class AutoPackTask extends DefaultTask {
                 boolean zipFile = Zip.zipFiles(compressFiles, new File(packFileDir.getParent() + File.separator + packFileDir.getName() + ".zip").getAbsolutePath())
                 Log.D("compress end:${zipFile}")
             }
+            Log.D("sendEmail end:${sendEmail}")
+            if (sendEmail) {
+                //TODO 进行sendEmail操作
+                Log.D("========sendEmail  begin=========")
+                Log.D("========sendEmail  end=========")
+            }
         } else {
             Log.D("========outputDir is invalid========")
         }
     }
 
-    public String renameCompileDir(String path) {
+    String renameCompileDir(String path) {
         def dir = new File(path)
         def files = dir.listFiles(new FilenameFilter() {
             @Override
@@ -119,11 +127,11 @@ public class AutoPackTask extends DefaultTask {
         return builder1.toString().replace(".apk", "")
     }
 
-    public static String taskName() {
+    static String taskName() {
         return "autoPack"
     }
 
-    public static String taskShortName() {
+    static String taskShortName() {
         return "aP"
     }
 

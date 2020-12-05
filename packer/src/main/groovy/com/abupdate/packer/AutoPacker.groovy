@@ -6,11 +6,11 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 
 class AutoPacker implements Plugin<Project> {
-
     Project project
     PackOutputConfigExtensionHandler packOutputConfigExtensionHandler = new PackOutputConfigExtensionHandler()
     TaskConfigExtensionHandler taskConfigExtensionHandler = new TaskConfigExtensionHandler()
-//    boolean paramsVerifyOK = false
+    UploadFtpConfigExtensionHandler uploadFtpConfigExtensionHandler = new UploadFtpConfigExtensionHandler()
+    SendEmailConfigExtensionHandler sendEmailConfigExtensionHandler = new SendEmailConfigExtensionHandler()
 
     @Override
     void apply(Project project) {
@@ -19,6 +19,9 @@ class AutoPacker implements Plugin<Project> {
         project.extensions.create('autoPack', AutoPackExtension)
         project.autoPack.extensions.create('packOutputConfig', PackOutputConfig)
         project.autoPack.extensions.create('taskConfig', TaskConfig)
+        project.autoPack.extensions.create('uploadFtpConfig', UploadFtpConfig)
+        project.autoPack.extensions.create('sendEmailConfig', SendEmailConfig)
+        //Task
         AutoPackTask autoPackTask = project.tasks.create(AutoPackTask.taskName(), AutoPackTask.class)
         Task buildTask = project.tasks.getByName('assemble')
         autoPackTask.setGroup('AutoPack')
@@ -52,44 +55,6 @@ class AutoPacker implements Plugin<Project> {
             }
             Log.D("apply project end..")
         }
-
-//        def task = project.task('customTaskWithParams')
-//        Map<Project, Set<Task>> maps = project.getRootProject().getAllTasks(false)
-//        D("============maps:" + maps)
-//
-//        def task1 = project.tasks.getByName('assemble')
-//        D("======task1:" + task1)
-////        Set<Task> assembleTask = project.getTasksByName(":assembleRelease", false)
-//        Set<Task> assembleTask = project.getTasksByName("assembleDebug", false)
-//        D("============" + project.name + "  ,, " + assembleTask.size())
-//        def iterator = assembleTask.iterator()
-//        while (iterator.hasNext()) {
-//            def next = iterator.next()
-//            D("============" + next.getName())
-//        }
-//
-//        task.doFirst {
-//            D("-----------------doFirst-------------------")
-//            def autoPackerFile = project.getProject().file("auto-packer.properties")
-//            if (!autoPackerFile.canRead()) {
-//                D("file which named auto-packer.properties was not found")
-//                throw new RuntimeException("file which named auto-packer.properties was not found")
-//            }
-//            def autoPackerProperties = new Properties()
-//            autoPackerProperties.load(new FileInputStream(autoPackerFile))
-//
-//            if (!autoPackerProperties.containsKey("OUTPUT_DIR")) {
-//                throw new RuntimeException("file which named keystore.properties miss some entries:OUTPUT_DIR")
-//            }
-//
-//            paramsVerifyOK = true
-//        }
-//
-//        task.doLast {
-//            D("-----------------doLast-------------------")
-//
-//        }
-
     }
 
     boolean hasAutoPackTask() {
