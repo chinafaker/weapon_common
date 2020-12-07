@@ -2,12 +2,12 @@ package com.abupdate.packer
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
-import org.gradle.internal.impldep.com.sun.xml.bind.v2.TODO
 
 public class AutoPackTask extends DefaultTask {
 
     String outputDir
     String packDirName
+    String emailReleaseNoteFile
     boolean compress
     boolean sendEmail
     List<ApkRenameDate> srcPathList
@@ -18,7 +18,7 @@ public class AutoPackTask extends DefaultTask {
         Log.D("outputDir:${outputDir}")
         Log.D("packDirName:${packDirName}")
         Log.D("srcPathList:${srcPathList}")
-        if (outputDir != null && !"".equals(outputDir)) {
+        if (outputDir != null && "" != outputDir) {
             File outputDirFile = new File(outputDir)
             if (outputDirFile.getParentFile().getName() == "build") {
                 //只有在build下的目录才能被删除，避免因为传入错误参数导致删除掉代码文件
@@ -62,9 +62,15 @@ public class AutoPackTask extends DefaultTask {
                 Log.D("compress end:${zipFile}")
             }
             Log.D("sendEmail end:${sendEmail}")
+            Log.D("emailReleaseNoteFile end:${emailReleaseNoteFile}")
             if (sendEmail) {
                 //TODO 进行sendEmail操作
                 Log.D("========sendEmail  begin=========")
+                Log.D("========sendEmail  emailReleaseNoteFile  path is " + emailReleaseNoteFile)
+                Log.D("emailReleaseNoteFile content is \n" + FileUtils.readFile2String(emailReleaseNoteFile))
+                Log.D("========createFile  start=========")
+                FileUtils.createFile(FileUtils.readFile2String(emailReleaseNoteFile), new File(emailReleaseNoteFile).getParent() + "/11111.txt")
+                Log.D("========createFile  end=========")
                 Log.D("========sendEmail  end=========")
             }
         } else {

@@ -17,6 +17,11 @@ class PackOutputConfig {
     boolean sendEmail
 
     /**
+     * 发送邮件内容文件
+     */
+    String emailReleaseNoteFile
+
+    /**
      * 其他文件
      */
     String[] otherFiles

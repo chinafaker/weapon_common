@@ -5,10 +5,10 @@ version = "0.0.1"
 def libName = "AutoPacker"
 
 //文档打包成jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
 
 //生成源文件
 task sourcesJar(type: Jar) {
@@ -18,7 +18,7 @@ task sourcesJar(type: Jar) {
 
 //上传到jcenter所需要的源码文件
 artifacts {
-    archives javadocJar
+//    archives javadocJar
     archives sourcesJar
 }
 
