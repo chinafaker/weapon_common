@@ -50,6 +50,19 @@ class AutoPacker implements Plugin<Project> {
                 } else {
                     packOutputConfigExtensionHandler.renamePackFile(project, autoPackExtension)
                 }
+                def uploadFtpConfig = autoPackExtension.uploadFtpConfig
+                if (uploadFtpConfig == null) {
+                    throw new GradleException('Please config uploadFtpConfig')
+                } else {
+                    uploadFtpConfigExtensionHandler.uploadFtp(project, autoPackExtension)
+                }
+
+                def sendEmailConfig = autoPackExtension.sendEmailConfig
+                if (sendEmailConfig == null) {
+                    throw new GradleException('Please config sendEmailConfig')
+                } else {
+                    sendEmailConfigExtensionHandler.sendEmail(project, autoPackExtension)
+                }
             } else {
                 Log.D("not has AutoPackTask")
             }

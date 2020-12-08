@@ -1,6 +1,6 @@
 include ':aidlservertest'
 include ':appdemo'
 include ':aidlLibrary'
-include ':common'
+//include ':common'
 include ':packer'
 rootProject.name = "weapon_common"

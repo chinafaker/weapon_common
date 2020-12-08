@@ -67,14 +67,6 @@ autoPack {
         //设置禁止打包的BuildType
         disableBuildTypes = ['debug']
     }
-//    uploadFtpConfig {
-//        serverIp "10.10.30.46"
-//        userName "huanghaibin"
-//        passWord "2o6teayI"
-//        uploadFtpPath "/上汽EP21MCE欧洲FOTA项目/版本文件/AVN/apk/"
-//        localPath "‪C:\\Users\\hhb\\Desktop\\蓝鲸改版后.mp4"
-//    }
-
     packOutputConfig {
         //设置打包输出路径
         outputDir "${project.getProjectDir()}/autoPack"
@@ -94,5 +86,17 @@ autoPack {
         packDirName { project ->
             project.name
         }
+    }
+    uploadFtpConfig {
+        serverIp "10.10.30.46"
+        userName "huanghaibin"
+        passWord "2o6teayI"
+        uploadFtpPath "/上汽EP21MCE欧洲FOTA项目/版本文件/AVN/apk/"
+        localPath "‪C:\\Users\\hhb\\Desktop\\蓝鲸改版后.mp4"
+    }
+    sendEmailConfig {
+        projectName "weapon_common"
+        version "V1.0.8"
+        releaseNote "releaseNote,releaseNote，releaseNote"
     }
 }
