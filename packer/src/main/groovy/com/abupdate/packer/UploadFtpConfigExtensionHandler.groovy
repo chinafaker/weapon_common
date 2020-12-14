@@ -17,7 +17,9 @@ class UploadFtpConfigExtensionHandler {
         String localPath = uploadFtpConfig.localPath
         String uploadFtpPath = uploadFtpConfig.uploadFtpPath
         Log.D("serverIp:${serverIp},userName:${userName},passWord:${passWord},localPath:${localPath},uploadFtpPath:${uploadFtpPath}")
-        
+
+        FtpUtil.uploadFile(serverIp,userName,passWord,uploadFtpPath, "test.zip", localPath, "")
+
         Log.D("uploadFtp() end")
     }
 }

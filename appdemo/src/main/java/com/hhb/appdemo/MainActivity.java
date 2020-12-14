@@ -63,4 +63,16 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+    public void ftpClick(View view) {
+        Trace.i(TAG, "ftpClick()");
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+//                FtpUtil.uploadFile("10.10.30.46", "huanghaibin", "2o6teayI", "/上汽EP21MCE欧洲FOTA项目/版本文件/AVN/apk/", "ota.properties", "/sdcard/ota.properties");
+                FtpUtil.uploadFile("172.18.6.133", "huanghaibin", "hhhhbb", "\\hhb_ftp_server\\apk\\", "ota.properties", "/sdcard/ota.properties");
+            }
+        });
+        thread.start();
+    }
 }

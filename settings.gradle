@@ -1,6 +1,7 @@
+include ':ep21client'
 include ':aidlservertest'
-include ':appdemo'
 include ':aidlLibrary'
-//include ':common'
+include ':common'
 include ':packer'
+include ':appdemo'
 rootProject.name = "weapon_common"
