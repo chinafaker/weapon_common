@@ -8,7 +8,12 @@ class UploadFtpConfig {
     String serverIp
 
     /**
-     * 账户
+     * 服务器 port
+     */
+    String serverPort
+
+    /**
+     * 账号
      */
     String userName
 
@@ -17,15 +22,21 @@ class UploadFtpConfig {
      */
     String passWord
 
-    /**
-     * 上传文件路径
-     */
-    String localPath
 
     /**
      * 上传ftp目录
      */
     String uploadFtpPath
+
+    /**
+     * 上传文件名称
+     */
+    String uploadFileName
+
+    /**
+     * 上传文件本地路径
+     */
+    String localPath
 
 
 }

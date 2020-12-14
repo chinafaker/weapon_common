@@ -1,21 +1,21 @@
-//buildscript {
-//    repositories {
-//        jcenter()
-//        maven {
-//            url uri('../repo')
-//        }
-//    }
-//    dependencies {
-//        classpath group: 'com.seven.weapon',
-//                name: 'packer',
-//                version: '0.0.1'
-//    }
-//}
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url uri('../repo')
+        }
+    }
+    dependencies {
+        classpath group: 'com.seven.weapon',
+                name: 'packer',
+                version: '0.0.1'
+    }
+}
 
 plugins {
     id 'com.android.application'
 }
-//apply plugin: 'auto-packer'
+apply plugin: 'auto-packer'
 
 android {
     compileSdkVersion 29
@@ -60,43 +60,40 @@ dependencies {
 }
 
 
-//autoPack {
-//    taskConfig {
-//        //设置禁止打包的ProductFlavor
-//        disableProductFlavors = ['Type2']
-//        //设置禁止打包的BuildType
-//        disableBuildTypes = ['debug']
-//    }
-//    packOutputConfig {
-//        //设置打包输出路径
-//        outputDir "${project.getProjectDir()}/autoPack"
-//        //是否压缩
-//        compress true
-//        //是否发邮件
-//        sendEmail true
-//        //发送邮件内容文件
-//        emailReleaseNoteFile = "${project.getProjectDir()}/ReleaseNote.txt"
-//        //打包其他的文件
-//        otherFiles = ["${project.getProjectDir()}/README.md", "${project.getProjectDir()}/ReleaseNote.txt"]
-//        //对APK文件进行重命名
-//        renameApkFile { project, variant ->
-//            project.name + '_' + variant.name + '_' + variant.versionName + '.apk'
-//        }
-//        //命名打包目录的文件夹，若不设置，默认为APK的文件名
-//        packDirName { project ->
-//            project.name
-//        }
-//    }
-//    uploadFtpConfig {
-//        serverIp "10.10.30.46"
-//        userName "huanghaibin"
-//        passWord "2o6teayI"
-//        uploadFtpPath "/上汽EP21MCE欧洲FOTA项目/版本文件/AVN/apk/"
-//        localPath "‪C:\\Users\\hhb\\Desktop\\蓝鲸改版后.mp4"
-//    }
-//    sendEmailConfig {
-//        projectName "weapon_common"
-//        version "V1.0.8"
-//        releaseNote "releaseNote,releaseNote，releaseNote"
-//    }
-//}
+autoPack {
+    taskConfig {
+        //设置禁止打包的ProductFlavor
+        disableProductFlavors = ['Type2']
+        //设置禁止打包的BuildType
+        disableBuildTypes = ['debug']
+    }
+    packOutputConfig {
+        //设置打包输出路径
+        outputDir "${project.getProjectDir()}/autoPack"
+        //是否压缩
+        compress true
+        //是否发邮件
+        sendEmail true
+        //发送邮件内容文件
+        emailReleaseNoteFile = "${project.getProjectDir()}/ReleaseNote.txt"
+        //打包其他的文件
+        otherFiles = ["${project.getProjectDir()}/README.md", "${project.getProjectDir()}/ReleaseNote.txt"]
+        //对APK文件进行重命名
+        renameApkFile { project, variant ->
+            project.name + '_' + variant.name + '_' + variant.versionName + '.apk'
+        }
+        //命名打包目录的文件夹，若不设置，默认为APK的文件名
+        packDirName { project ->
+            project.name
+        }
+    }
+    uploadFtpConfig {
+        serverIp "172.18.6.133"
+        serverPort "21"
+        userName "huanghaibin"
+        passWord "hhhhbb"
+        uploadFtpPath "\\autoPackage\\"
+        uploadFileName "aidlLibrary-release.aar"
+        localPath "C:\\android_code\\weapon_common\\appdemo\\libs\\aidlLibrary-release.aar"
+    }
+}

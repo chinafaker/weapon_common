@@ -12,14 +12,14 @@ class UploadFtpConfigExtensionHandler {
             return
         }
         String serverIp = uploadFtpConfig.serverIp
+        String serverPort = uploadFtpConfig.serverPort
         String userName = uploadFtpConfig.userName
         String passWord = uploadFtpConfig.passWord
-        String localPath = uploadFtpConfig.localPath
         String uploadFtpPath = uploadFtpConfig.uploadFtpPath
-        Log.D("serverIp:${serverIp},userName:${userName},passWord:${passWord},localPath:${localPath},uploadFtpPath:${uploadFtpPath}")
-
-        FtpUtil.uploadFile(serverIp,userName,passWord,uploadFtpPath, "test.zip", localPath, "")
-
+        String uploadFileName = uploadFtpConfig.uploadFileName
+        String localPath = uploadFtpConfig.localPath
+        Log.D("serverIp:${serverIp},serverPort:${serverPort},userName:${userName},passWord:${passWord},uploadFtpPath:${uploadFtpPath},uploadFileName:${uploadFileName},localPath:${localPath}")
+        FtpUtil.uploadFile(serverIp, serverPort, userName, passWord, uploadFtpPath, uploadFileName, localPath)
         Log.D("uploadFtp() end")
     }
 }

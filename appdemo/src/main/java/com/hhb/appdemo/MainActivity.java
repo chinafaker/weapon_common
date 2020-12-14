@@ -69,8 +69,29 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-//                FtpUtil.uploadFile("10.10.30.46", "huanghaibin", "2o6teayI", "/上汽EP21MCE欧洲FOTA项目/版本文件/AVN/apk/", "ota.properties", "/sdcard/ota.properties");
-                FtpUtil.uploadFile("172.18.6.133", "huanghaibin", "hhhhbb", "\\hhb_ftp_server\\apk\\", "ota.properties", "/sdcard/ota.properties");
+                FtpUtilTest.uploadFileTest(null, "", "huanghaibin", "hhhhbb", "\\apkkkkk\\", "aidl.zip", "/sdcard/aidl.zip");
+            }
+        });
+        thread.start();
+    }
+
+    public void ftpClick2(View view) {
+        Trace.i(TAG, "ftpClick2()");
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                FtpUtilTest.uploadFileTest("172.18.6.133", "21", "huanghaibin", "hhhhbb", "\\hhb\\", "aidl.zip", "/sdcard/aidl.zip");
+            }
+        });
+        thread.start();
+    }
+
+    public void ftpClick3(View view) {
+        Trace.i(TAG, "ftpClick3()");
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                FtpUtilTest.uploadFileTest("172.18.6.133", "21", "huanghaibin", "hhhhbb", "", "aidl.zip", "/sdcard/aidl.zip");
             }
         });
         thread.start();
