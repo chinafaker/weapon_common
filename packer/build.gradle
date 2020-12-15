@@ -2,9 +2,14 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 
 dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     implementation gradleApi()
     implementation localGroovy()
-    implementation fileTree(include: ['*.jar'], dir: 'src\\main\\libs')
+}
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 repositories {

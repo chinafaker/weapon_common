@@ -91,6 +91,7 @@ class PackOutputConfigExtensionHandler {
         autoPackTask.emailReleaseNoteFile = emailReleaseNoteFile
         autoPackTask.outputDir = outputDir
         autoPackTask.srcPathList = srcPathList
+        Log.D("renamePackFile() end")
     }
 
     static boolean containInArray(String apkName, String[] array) {

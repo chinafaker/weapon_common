@@ -29,14 +29,7 @@ class UploadFtpConfig {
     String uploadFtpPath
 
     /**
-     * 上传文件名称
-     */
-    String uploadFileName
-
-    /**
      * 上传文件本地路径
      */
-    String localPath
-
-
+    String[] localPaths
 }

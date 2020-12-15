@@ -50,6 +50,7 @@ class AutoPacker implements Plugin<Project> {
                 } else {
                     packOutputConfigExtensionHandler.renamePackFile(project, autoPackExtension)
                 }
+                //上传至ftp
                 def uploadFtpConfig = autoPackExtension.uploadFtpConfig
                 if (uploadFtpConfig == null) {
                     throw new GradleException('Please config uploadFtpConfig')

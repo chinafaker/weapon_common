@@ -5,17 +5,11 @@ import org.gradle.api.Project
 class TaskConfigExtensionHandler {
 
     static void applyTaskConfig(Project project, def taskConfigExtension) {
-
+        Log.D("applyTaskConfig() start")
         String[] disableProductFlavors = taskConfigExtension.disableProductFlavors as String[]
         String[] disableBuildTypes = taskConfigExtension.disableBuildTypes as String[]
         def targetTasks = project.tasks.findAll { task ->
             def taskName = task.name.toLowerCase()
-//            Log.D("task name:${taskName}")
-
-//            if (taskName.contains('lint'))
-//                return true
-//            if (taskName.contains("test"))
-//                return true
             if (containInArray(taskName, disableProductFlavors)) {
                 return true
             }
@@ -34,7 +28,6 @@ class TaskConfigExtensionHandler {
     static boolean containInArray(String taskName, String[] array) {
         for (key in array) {
             key = key.toLowerCase()
-//            println(key)
             if (taskName.contains(key)) {
                 return true
             }
