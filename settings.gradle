@@ -1,7 +1,7 @@
 //include ':appdemo'
-//include ':aidlservertest'
+include ':aidlservertest'
 //include ':aidlLibrary'
-//include ':common'
-include ':packer'
-include ':ep21client'
+////include ':common'
+//include ':packer'
+//include ':ep21client'
 rootProject.name = "weapon_common"

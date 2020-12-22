@@ -63,10 +63,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //okhttp
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
-    //common
-//    implementation 'com.seven.weapon:common:0.0.1'
 
-    api "com.abupdate.weaponry:common:$common_version"
+    implementation "com.abupdate.weaponry:common:$common_version"
     implementation "com.abupdate.weaponry:common-ui:$common_version"
     implementation "com.abupdate.weaponry:common-download:$common_version"
     implementation "com.abupdate.weaponry:common-mqtt:$common_version"
