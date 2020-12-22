@@ -11,16 +11,7 @@ class PackOutputConfig {
      * 是否压缩
      */
     boolean compress
-    /**
-     * 是否发送邮件
-     */
-    boolean sendEmail
-
-    /**
-     * 发送邮件内容文件
-     */
-    String emailReleaseNoteFile
-
+    
     /**
      * 其他文件
      */

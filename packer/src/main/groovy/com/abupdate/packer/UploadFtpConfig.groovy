@@ -3,6 +3,10 @@ package com.abupdate.packer
 class UploadFtpConfig {
 
     /**
+     * 是否上传 uploadFtp
+     */
+    boolean uploadFtp
+    /**
      * 服务器 ip
      */
     String serverIp

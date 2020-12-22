@@ -1,17 +1,18 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile files('libs/commons-net-3.7.2.jar')
     implementation gradleApi()
     implementation localGroovy()
 }
 jar {
+    manifest {
+        attributes 'Main-Class': ""
+    }
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
-
 repositories {
     mavenCentral()
 }

@@ -72,10 +72,6 @@ autoPack {
         outputDir "${project.getProjectDir()}/autoPack"
         //是否压缩
         compress true
-        //是否发邮件
-        sendEmail true
-        //发送邮件内容文件
-        emailReleaseNoteFile = "${project.getProjectDir()}/ReleaseNote.txt"
         //打包其他的文件
         otherFiles = ["${project.getProjectDir()}/README.md", "${project.getProjectDir()}/ReleaseNote.txt"]
         //对APK文件进行重命名

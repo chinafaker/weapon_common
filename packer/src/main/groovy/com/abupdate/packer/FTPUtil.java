@@ -24,8 +24,7 @@ public class FtpUtil {
         }
         try {
             if (null != port || !port.isEmpty()) {
-                int pt = Integer.parseInt(port);
-                Log.D("uploadFile port is " + pt);
+                Integer.parseInt(port);
             }
         } catch (NumberFormatException e) {
             throw new GradleException("uploadFile ftp  serverPort config can not be null");
@@ -68,7 +67,7 @@ public class FtpUtil {
             Log.D("uploadFile changeWorking is " + changeWorking);
 
             Log.D("uploadFile  localPaths length is " + localPaths.length);
-            for (int index = 0; index <= localPaths.length; index++) {
+            for (int index = 0; index < localPaths.length; index++) {
                 String localPath = localPaths[index];
                 Log.D("uploadFile  localPath is " + localPath);
                 File file = new File(localPath);

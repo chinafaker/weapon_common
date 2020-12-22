@@ -68,11 +68,6 @@ dependencies {
     implementation "com.abupdate.weaponry:common-ui:$common_version"
     implementation "com.abupdate.weaponry:common-download:$common_version"
     implementation "com.abupdate.weaponry:common-mqtt:$common_version"
-
-    // use kapt for Kotlin
-    implementation 'commons-net:commons-net:3.6'
-
-
 }
 
 //获取本地local.properties中ftp账号密码
@@ -91,10 +86,6 @@ autoPack {
         outputDir "${project.getProjectDir()}/autoPack"
         //是否压缩
         compress true
-        //是否发邮件
-        sendEmail true
-        //发送邮件内容文件
-        emailReleaseNoteFile = "${project.getProjectDir()}/ReleaseNote.txt"
         //打包其他的文件
         otherFiles = ["${project.getProjectDir()}/README.md", "${project.getProjectDir()}/ReleaseNote.txt"]
         //对APK文件进行重命名
@@ -106,13 +97,14 @@ autoPack {
             project.name
         }
     }
-//    uploadFtpConfig {
-//        serverIp "172.18.6.133"
-//        serverPort "21"
-//        userName properties.getProperty("ftp.userName")
-//        passWord properties.getProperty("ftp.PassWord")
-//        uploadFtpPath "\\autoPackage\\"
-//        localPaths = ["C:\\android_code\\weapon_common\\appdemo\\libs\\aidlLibrary-release.aar", "C:\\android_code\\weapon_common\\appdemo\\libs\\commons-net-3.7.2.jar"]
-//        localPaths = ["C:\\android_code\\weapon_common\\appdemo\\libs\\aidlLibrary-release.aar"]
-//    }
+    uploadFtpConfig {
+        uploadFtp true
+        serverIp "172.18.6.133"
+        serverPort "21"
+        userName properties.getProperty("ftp.userName")
+        passWord properties.getProperty("ftp.PassWord")
+        uploadFtpPath "\\autoPackage\\"
+        localPaths = ["C:\\android_code\\weapon_common\\appdemo\\libs\\aidlLibrary-release.aar", "C:\\android_code\\weapon_common\\appdemo\\libs\\commons-net-3.7.2.jar"]
+    }
+
 }

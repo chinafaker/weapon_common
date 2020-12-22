@@ -12,7 +12,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/aidlservertest" />
+            <option value="$PROJECT_DIR$/ep21client" />
+            <option value="$PROJECT_DIR$/packer" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -21,7 +21,7 @@ class AutoPacker implements Plugin<Project> {
         project.autoPack.extensions.create('taskConfig', TaskConfig)
         project.autoPack.extensions.create('uploadFtpConfig', UploadFtpConfig)
         project.autoPack.extensions.create('sendEmailConfig', SendEmailConfig)
-        //Task
+        //Task AutoPack
         AutoPackTask autoPackTask = project.tasks.create(AutoPackTask.taskName(), AutoPackTask.class)
         Task buildTask = project.tasks.getByName('assemble')
         autoPackTask.setGroup('AutoPack')
@@ -56,13 +56,6 @@ class AutoPacker implements Plugin<Project> {
                     throw new GradleException('Please config uploadFtpConfig')
                 } else {
                     uploadFtpConfigExtensionHandler.uploadFtp(project, autoPackExtension)
-                }
-
-                def sendEmailConfig = autoPackExtension.sendEmailConfig
-                if (sendEmailConfig == null) {
-                    throw new GradleException('Please config sendEmailConfig')
-                } else {
-                    sendEmailConfigExtensionHandler.sendEmail(project, autoPackExtension)
                 }
             } else {
                 Log.D("not has AutoPackTask")
