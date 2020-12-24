@@ -1,9 +1,7 @@
 package com.abupdate.packer
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
-import org.gradle.internal.impldep.com.sun.xml.bind.v2.TODO
 
 public class AutoPackTask extends DefaultTask {
 
@@ -13,6 +11,8 @@ public class AutoPackTask extends DefaultTask {
     List<ApkRenameDate> srcPathList
     // UploadFtp
     UploadFtpConfig uploadFtpConfig
+    //EmailTemplateConfig
+    EmailTemplateConfig emailTemplateConfig
 
     @TaskAction
     void pack() {
@@ -68,7 +68,32 @@ public class AutoPackTask extends DefaultTask {
                 FtpUtil.uploadFile(uploadFtpConfig.serverIp, uploadFtpConfig.serverPort, uploadFtpConfig.userName, uploadFtpConfig.passWord, uploadFtpConfig.uploadFtpPath, uploadFtpConfig.localPaths)
                 Log.D("========uploadFtp end========")
             } else {
-                Log.D("========config is not upload Ftp=========")
+                Log.D("========not config upload Ftp=========")
+            }
+            if (emailTemplateConfig.templateConfig) {
+                Log.D("========make email template start=========")
+                String releaseNote = FileUtils.readFile2String(emailTemplateConfig.releaseNoteLocalPath)
+                int strStartIndex = releaseNote.indexOf("新版说明：")
+                int strEndIndex = releaseNote.indexOf("更新履历：")
+                if (strStartIndex < 0) {
+                    Log.D("字符串 新版说明: 不存在, 无法截取更新内容")
+                    return
+                }
+                if (strEndIndex < 0) {
+                    Log.D("字符串 更新履历: 不存在, 无法截取更新内容")
+                    return
+                }
+                releaseNote = releaseNote.substring(strStartIndex, strEndIndex).substring("新版说明：".length()).replaceAll("\n", "\n   ")
+                StringBuffer stringBuffer = new StringBuffer()
+                stringBuffer.append("Hi, xx:")
+                        .append("\n\n")
+                        .append("   ${emailTemplateConfig.projectName}项目的APK文件已上传FTP，版本号：V${project.android.defaultConfig.versionName}，请安排进行测试。\n\n")
+                        .append("   更新内容:")
+                        .append(releaseNote)
+                FileUtils.createFile(stringBuffer.toString(), parentFile.path + "/邮件模板.txt")
+                Log.D("========make email template end=========")
+            } else {
+                Log.D("========not config make email template=========")
             }
             Log.D("AutoPackTask execute end")
         } else {

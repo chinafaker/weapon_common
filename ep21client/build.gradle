@@ -25,7 +25,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "1.1.444444"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -75,6 +75,7 @@ Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 autoPack {
+    def outputDirPath = "${project.getProjectDir()}/autoPack/"
     taskConfig {
         //设置禁止打包的ProductFlavor
         disableProductFlavors = ['Type2']
@@ -83,11 +84,11 @@ autoPack {
     }
     packOutputConfig {
         //设置打包输出路径
-        outputDir "${project.getProjectDir()}/autoPack"
+        outputDir outputDirPath
         //是否压缩
-        compress true
+        compress false
         //打包其他的文件
-        otherFiles = ["${project.getProjectDir()}/README.md", "${project.getProjectDir()}/ReleaseNote.txt"]
+        otherFiles = [ "${project.getProjectDir()}/ReleaseNote.txt"]
         //对APK文件进行重命名
         renameApkFile { project, variant ->
             project.name + '_' + variant.name + '_' + variant.versionName + '.apk'
@@ -104,7 +105,12 @@ autoPack {
         userName properties.getProperty("ftp.userName")
         passWord properties.getProperty("ftp.PassWord")
         uploadFtpPath "\\autoPackage\\"
-        localPaths = ["C:\\android_code\\weapon_common\\appdemo\\libs\\aidlLibrary-release.aar", "C:\\android_code\\weapon_common\\appdemo\\libs\\commons-net-3.7.2.jar"]
+        localPaths = ["${project.getProjectDir()}/ReleaseNote.txt", outputDirPath + project.name + '/ep21client_release_1.0.apk']
     }
 
+    emailTemplateConfig {
+        templateConfig true
+        projectName project.name
+        releaseNoteLocalPath "${project.getProjectDir()}/ReleaseNote.txt"
+    }
 }

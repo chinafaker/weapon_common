@@ -12,9 +12,6 @@ class UploadFtpConfigExtensionHandler {
             return
         }
         AutoPackTask autoPackTask = project.tasks.findByName(AutoPackTask.taskName())
-        if (autoPackTask.packDirName == null || "" == autoPackTask.packDirName) {
-            autoPackTask.packDirName = "compile"
-        }
         autoPackTask.uploadFtpConfig = uploadFtpConfig
         Log.D("uploadFtp config end")
     }

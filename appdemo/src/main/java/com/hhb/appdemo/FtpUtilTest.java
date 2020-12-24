@@ -61,10 +61,8 @@ public class FtpUtilTest {
             }
             //创建文件夹
             boolean makeDirectory = ftpClient.makeDirectory(remotePath);
-            Log.i(TAG, "uploadFile makeDirectory is " + makeDirectory);
             //切换文件路径
             boolean changeWorking = ftpClient.changeWorkingDirectory(remotePath);
-            Log.i(TAG, "uploadFile changeWorking is " + changeWorking);
 
             inputStream = new FileInputStream(file);
             String remote = remotePath + remoteFileName;

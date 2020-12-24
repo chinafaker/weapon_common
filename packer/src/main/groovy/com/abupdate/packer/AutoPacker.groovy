@@ -10,7 +10,7 @@ class AutoPacker implements Plugin<Project> {
     PackOutputConfigExtensionHandler packOutputConfigExtensionHandler = new PackOutputConfigExtensionHandler()
     TaskConfigExtensionHandler taskConfigExtensionHandler = new TaskConfigExtensionHandler()
     UploadFtpConfigExtensionHandler uploadFtpConfigExtensionHandler = new UploadFtpConfigExtensionHandler()
-    SendEmailConfigExtensionHandler sendEmailConfigExtensionHandler = new SendEmailConfigExtensionHandler()
+    EmailTemplateConfigExtensionHandler emailTemplateConfigExtensionHandler = new EmailTemplateConfigExtensionHandler()
 
     @Override
     void apply(Project project) {
@@ -20,7 +20,7 @@ class AutoPacker implements Plugin<Project> {
         project.autoPack.extensions.create('packOutputConfig', PackOutputConfig)
         project.autoPack.extensions.create('taskConfig', TaskConfig)
         project.autoPack.extensions.create('uploadFtpConfig', UploadFtpConfig)
-        project.autoPack.extensions.create('sendEmailConfig', SendEmailConfig)
+        project.autoPack.extensions.create('emailTemplateConfig', EmailTemplateConfig)
         //Task AutoPack
         AutoPackTask autoPackTask = project.tasks.create(AutoPackTask.taskName(), AutoPackTask.class)
         Task buildTask = project.tasks.getByName('assemble')
@@ -56,6 +56,13 @@ class AutoPacker implements Plugin<Project> {
                     throw new GradleException('Please config uploadFtpConfig')
                 } else {
                     uploadFtpConfigExtensionHandler.uploadFtp(project, autoPackExtension)
+                }
+                //配置邮件模板
+                def emailTemplateConfig = autoPackExtension.emailTemplateConfig
+                if (emailTemplateConfig == null) {
+                    throw new GradleException('Please config emailTemplateConfig')
+                } else {
+                    emailTemplateConfigExtensionHandler.templateConfig(project, autoPackExtension)
                 }
             } else {
                 Log.D("not has AutoPackTask")

@@ -6,9 +6,6 @@ dependencies {
     implementation localGroovy()
 }
 jar {
-    manifest {
-        attributes 'Main-Class': ""
-    }
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
