@@ -22,7 +22,7 @@ android {
 
     defaultConfig {
         applicationId "com.hhb.ep21client"
-        minSdkVersion 21
+        minSdkVersion 15
         targetSdkVersion 29
         versionCode 1
         versionName "1.1.444444"
@@ -62,12 +62,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //okhttp
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    //implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:okhttp:3.12.1")
 
     implementation "com.abupdate.weaponry:common:$common_version"
     implementation "com.abupdate.weaponry:common-ui:$common_version"
     implementation "com.abupdate.weaponry:common-download:$common_version"
     implementation "com.abupdate.weaponry:common-mqtt:$common_version"
+    implementation 'com.adups.iot:iot_download_libs:1.1.10_1'
+    implementation 'com.adups.iot:trace:1.0.4'
 }
 
 //获取本地local.properties中ftp账号密码
@@ -105,7 +108,7 @@ autoPack {
         userName properties.getProperty("ftp.userName")
         passWord properties.getProperty("ftp.PassWord")
         uploadFtpPath "\\autoPackage\\"
-        localPaths = ["${project.getProjectDir()}/ReleaseNote.txt", outputDirPath + project.name + '/ep21client_release_1.0.apk']
+        localPaths = ["${project.getProjectDir()}/ReleaseNote.txt", outputDirPath + project.name + '/ep21client_release_1.1.444444.apk']
     }
 
     emailTemplateConfig {

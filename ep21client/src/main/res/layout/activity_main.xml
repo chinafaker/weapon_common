@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:onClick="startDownLoad"
-        android:text="开始下载1"
+        android:text="okhttp库下载"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,9 +67,18 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:onClick="startDownLoad2"
-        android:text="开始下载2"
+        android:text="common库下载"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_download" />
+    <Button
+        android:id="@+id/btn_download3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:onClick="startDownLoad3"
+        android:text="iot库下载"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_download2" />
 
 
     <Button
@@ -80,8 +89,7 @@
         android:onClick="clearLog"
         android:text="清除日志"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_download2" />
-
+        app:layout_constraintTop_toBottomOf="@+id/btn_download3" />
 
 
     <ScrollView

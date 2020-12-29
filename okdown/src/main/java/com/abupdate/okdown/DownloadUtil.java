@@ -1,8 +1,6 @@
-package com.hhb.ep21client;
+package com.abupdate.okdown;
 
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,17 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
+import androidx.annotation.NonNull;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -42,10 +31,7 @@ public class DownloadUtil {
     }
 
     private DownloadUtil() {
-        OkHttpClient.Builder mBuilder = new OkHttpClient.Builder();
-//        mBuilder.sslSocketFactory(createSSLSocketFactory());
-//        mBuilder.hostnameVerifier(new TrustAllHostnameVerifier());
-        okHttpClient = mBuilder.build();
+        okHttpClient = new OkHttpClient();
     }
 
     /**
@@ -74,8 +60,7 @@ public class DownloadUtil {
                 try {
                     is = response.body().byteStream();
                     long total = response.body().contentLength();
-//                    File file = new File(savePath, getNameFromUrl(url));
-                    File file = new File(savePath, "9e511a80cecb4871b5da4fd2c0457361.xml");
+                    File file = new File(savePath, getNameFromUrl(url));
                     fos = new FileOutputStream(file);
                     long sum = 0;
                     while ((len = is.read(buf)) != -1) {
@@ -244,40 +229,6 @@ public class DownloadUtil {
                 Log.e("download", "onFailure: ", e);
             }
         });
-    }
-
-
-    public static class TrustAllCerts implements X509TrustManager {
-        @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-        }
-
-        @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
-        }
-    }
-
-    private static class TrustAllHostnameVerifier implements HostnameVerifier {
-        @Override
-        public boolean verify(String hostname, SSLSession session) {
-            return true;
-        }
-    }
-
-    private static SSLSocketFactory createSSLSocketFactory() {
-        SSLSocketFactory ssfFactory = null;
-        try {
-            SSLContext sc = SSLContext.getInstance("TLS");
-            sc.init(null, new TrustManager[]{new TrustAllCerts()}, new SecureRandom());
-            ssfFactory = sc.getSocketFactory();
-        } catch (Exception e) {
-        }
-        return ssfFactory;
     }
 
 }

@@ -2,6 +2,7 @@
 //include ':aidlservertest'
 //include ':aidlLibrary'
 ////include ':common'
+//include ':okdown'
 include ':packer'
-//include ':ep21client'
+include ':ep21client'
 rootProject.name = "weapon_common"
