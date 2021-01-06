@@ -70,6 +70,7 @@
         android:text="common库下载"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_download" />
+
     <Button
         android:id="@+id/btn_download3"
         android:layout_width="wrap_content"
@@ -80,6 +81,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_download2" />
 
+    <Button
+        android:id="@+id/btn_set_crt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:onClick="crtDownload"
+        android:text="common库设置证书下载"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_download3" />
 
     <Button
         android:id="@+id/btn_clear"
@@ -89,7 +99,7 @@
         android:onClick="clearLog"
         android:text="清除日志"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_download3" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_set_crt" />
 
 
     <ScrollView

@@ -55,6 +55,7 @@ android {
 }
 def common_version = "0.0.7"
 dependencies {
+    implementation files('libs/common-download-release.aar')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -67,7 +68,7 @@ dependencies {
 
     implementation "com.abupdate.weaponry:common:$common_version"
     implementation "com.abupdate.weaponry:common-ui:$common_version"
-    implementation "com.abupdate.weaponry:common-download:$common_version"
+    //implementation "com.abupdate.weaponry:common-download:$common_version"
     implementation "com.abupdate.weaponry:common-mqtt:$common_version"
     implementation 'com.adups.iot:iot_download_libs:1.1.10_1'
     implementation 'com.adups.iot:trace:1.0.4'
@@ -91,7 +92,7 @@ autoPack {
         //是否压缩
         compress false
         //打包其他的文件
-        otherFiles = [ "${project.getProjectDir()}/ReleaseNote.txt"]
+        otherFiles = ["${project.getProjectDir()}/ReleaseNote.txt"]
         //对APK文件进行重命名
         renameApkFile { project, variant ->
             project.name + '_' + variant.name + '_' + variant.versionName + '.apk'

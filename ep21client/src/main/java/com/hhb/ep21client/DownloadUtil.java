@@ -4,6 +4,15 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.abupdate.common.Trace;
+import com.abupdate.common_download.DownConfig;
+import com.abupdate.common_download.DownEntity;
+import com.abupdate.common_download.DownError;
+import com.abupdate.common_download.DownManager;
+import com.abupdate.common_download.DownTask;
+import com.abupdate.common_download.listener.SimpleDownListener;
+import com.abupdate.common_download.verifymode.Impl.VerifySha256Impl;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,6 +39,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class DownloadUtil {
+    private static final String TAG = "DownloadUtil";
     private static DownloadUtil downloadUtil;
     private final OkHttpClient okHttpClient;
     private int lastProgress = 0;
@@ -280,4 +290,49 @@ public class DownloadUtil {
         return ssfFactory;
     }
 
+
+    public static void executeDownload(String crtPath, String url, String localFilePath, long fileSize, String hash) {
+        DownConfig.setVerifyMode(VerifySha256Impl.INSTANCE);
+        Trace.i(TAG, "executeDownload() start ");
+        File file = new File(crtPath);
+        if (!file.exists()) {
+            Trace.i(TAG, "executeDownload() file not exists");
+            return;
+        }
+        DownConfig.setCRT(crtPath);
+        DownEntity downEntity = new DownEntity()
+                .setUrl(url)
+                .setFilePath(localFilePath)
+                .setFileSize(fileSize)
+                .setVerifyCode(hash);
+        DownTask downTask = new DownTask();
+        downTask.add(downEntity);
+        downTask.setListener(new SimpleDownListener() {
+            @Override
+            public void on_manual_cancel() {
+                super.on_manual_cancel();
+                Trace.i(TAG, "on_manual_cancel()");
+            }
+
+            @Override
+            public void on_progress(DownEntity entity, int progress, long down_size, long total_size) {
+                super.on_progress(entity, progress, down_size, total_size);
+                Trace.i(TAG, "on_progress() progress is " + progress + " down_size is " + down_size + "total_size is " + total_size);
+            }
+
+            @Override
+            public void on_success(DownEntity downEntity) {
+                super.on_success(downEntity);
+                Trace.i(TAG, "on_success()");
+            }
+
+            @Override
+            public void on_failed(DownEntity errDownEntity) {
+                super.on_failed(errDownEntity);
+                Trace.i(TAG, "on_failed() downEntity.download_status is " + downEntity.download_status);
+            }
+        });
+        //执行下载
+        DownManager.execAsync(downTask);
+    }
 }
